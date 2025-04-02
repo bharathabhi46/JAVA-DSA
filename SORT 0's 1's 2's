@@ -1,0 +1,62 @@
+
+public class SortEle {
+
+    public static void main(String[] args) {
+        // int z = 0;
+        // int o = 0;
+        // int t = 0;
+        int ar[] = {2, 1, 0, 2, 1, 0, 2};
+        int n = ar.length;
+
+        // METHOD - 1 => COUNTING THE ZEROS, ONES AND TWOS
+        for (int i = 0; i < n; i++) {
+            if (ar[i] == 0) {
+                z++;
+            }
+            if (ar[i] == 1) {
+                o++;
+            }
+            if (ar[i] == 2) {
+                t++;
+            }
+        }
+        for (int i = 0; i < z; i++) {
+            ar[i] = 0;
+        }
+        for (int i = z; i < o + z; i++) {
+            ar[i] = 1;
+        }
+        for (int i = z + o; i < n; i++) {
+            ar[i] = 2;
+        }
+        for (int i = 0; i < n; i++) {
+            System.out.print(ar[i]);
+        }
+        // TIME COMPLEXITY => O(n)
+        // SPACE COMPLEXITY => O(1)
+
+        // METHOD - 2 DUTCH NATIONAL FLAG ALGORITHM
+        int l = 0, m = 0, h = n - 1;
+        while (m <= h) {
+            if (ar[m] == 0) {
+                int temp = ar[m];
+                ar[m] = ar[l];
+                ar[l] = temp;
+                l++;
+                m++;
+            } else if (ar[m] == 1) {
+                m++;
+            } else {
+                int temp = ar[h];
+                ar[h] = ar[m];
+                ar[m] = temp;
+                h--;
+            }
+        }
+        for (int i = 0; i < n; i++) {
+            System.out.print(ar[i]);
+        }
+    }
+    // TIME COMPLEXITY => O(n)
+    // SPACE COMPLEXITY => O(1)
+}
