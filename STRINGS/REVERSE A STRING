@@ -1,0 +1,40 @@
+
+public class RevString {
+
+    public static void main(String args[]) {
+        // METHOD - 1 => IN BUILT METHOD
+        StringBuilder name = new StringBuilder("bharath");
+        int n = name.length();
+        name.reverse();
+        System.out.println(name);
+        // TIME COMPLEXITY => O(n)
+        // SPACE COMPLEXITY => O(1)
+
+        // METHOD - 2 => TWO POINTERS
+        int p1 = 0;
+        int p2 = name.length() - 1;
+        while (p1 != p2) {
+            char a = name.charAt(p1);
+            char b = name.charAt(p2);
+            name.setCharAt(p1, b);
+            name.setCharAt(p2, a);
+            p1++;
+            p2--;
+        }
+        System.out.println(name);
+        // TIME COMPLEXITY => O(n)
+        // SPACE COMPLEXITY => O(1)
+
+        
+        // METHOD - 3 => SWAPPING THE ELEMENTS PAIRWISE
+        for (int i = 0; i < n / 2; i++) {
+            char temp = name.charAt(i);
+            name.setCharAt(i, name.charAt(n - i - 1));
+            name.setCharAt(n - i - 1, temp);
+        }
+        System.out.println(name);
+        // TIME COMPLEXITY => O(n)
+        // SPACE COMPLEXITY => O(1)
+
+    }
+}
