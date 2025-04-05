@@ -1,0 +1,35 @@
+
+public class SumOfSubArr {
+
+    public static void main(String[] args) {
+        int arr[] = {-1, -2, -3, 4, 5, 6};
+        int n = arr.length;
+
+        // METHOD - 1  => BRUTE FORCE APPROACH
+        int sum = 0;
+        int c = 0;
+        for (int i = 0; i < n; i++) {
+            c = 0;
+            for (int j = i; j < n; j++) {
+                c += arr[j];
+                if (c > sum) {
+                    sum = c;
+                }
+            }
+        }
+        System.out.print(sum);
+        // TIME COMPLEXITY => O(n^2)
+        // SPACE COMPLEXITY => O(1)
+
+        // METHOD - 2 => KADANE'S ALGORITHM
+        int cS = arr[0];
+        int mS = arr[0];
+        for (int i = 1; i < n; i++) {
+            cS = Math.max(arr[i], cS + arr[i]);
+            mS = Math.max(mS, cS);
+        }
+        System.out.println(mS);
+        // TIME COMPLEXITY => O(n)
+        // SPACE COMPLEXITY => O(1)
+    }
+}
