@@ -1,0 +1,54 @@
+
+public class DuplicateCharacters {
+
+    public static void main(String args[]) {
+        StringBuilder name = new StringBuilder("Bharath");
+        int n = name.length();
+        // METHOD - 1 => BRUTE FORCE APPROACH
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = i + 1; j < n; j++) {
+                if (name.charAt(i) == name.charAt(j)) {
+                    System.out.println(name.charAt(i));
+                }
+            }
+        }
+        // TIME COMPLEXITY => O(n^2)
+        // SPACE COMPLEXITY => O(1)
+
+        // METHOD - 2 => USING STRING IN BUILT METHOD (CONTAINS)
+        String s = "abhiram";
+        int n1 = s.length();
+        String s1 = "";
+        for (int i = 0; i < n1; i++) {
+            if (s1.contains(String.valueOf(s.charAt(i)))) {
+                System.out.println(s.charAt(i));
+            } else {
+                s1 += s.charAt(i);
+            }
+        }
+        // TIME COMPLEXITY => O(n^2)
+        // SPACE COMPLEXITY => O(n)
+        // METHOD - 3 => USING ASCII VALUES
+        String str = "abhinav";
+        int n2 = str.length();
+        int seen[] = new int[256];
+        char dup[] = new char[256];
+        int ind = 0;
+
+        for (int i = 0; i < n2; i++) {
+            seen[str.charAt(i)]++;
+        }
+
+        for (int i = 0; i < 256; i++) {
+            if (seen[i] > 1) {
+                dup[ind++] = (char) i;
+            }
+        }
+
+        for (int i = 0; i < ind; i++) {
+            System.out.println(dup[i]);
+        }
+        // TIME COMPLEXITY => O(n)
+        // SPACE COMPLEXITY => O(1)
+    }
+}
