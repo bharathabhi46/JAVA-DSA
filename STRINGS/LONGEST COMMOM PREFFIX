@@ -1,0 +1,21 @@
+
+public class LongestCommomPrefix {
+
+    public static void main(String[] args) {
+        String arr[] = {"flower", "flow", "flight"};
+        String s = arr[0];
+        int n = s.length();
+        int c = n;
+        for (int i = 1; i < arr.length; i++) {
+            String s2 = arr[i];
+            int j = 0;
+            while (j < s2.length() && j < c && s2.charAt(j) == s.charAt(j)) {
+                j++;
+            }
+            c = j;
+
+        }
+
+        System.out.print(s.substring(0, c));
+    }
+}
