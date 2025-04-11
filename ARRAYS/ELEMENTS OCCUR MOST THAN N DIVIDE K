@@ -1,0 +1,49 @@
+
+// import java.util.HashMap;
+public class ElementsOccurMorethanNdivideK {
+
+    public static void main(String args[]) {
+        // METHOD - 1 => USING ASCII VALUES
+        int arr[] = {6, 6, 6, 3, 4, 6};
+        int n = arr.length;
+        int k = 3;
+        int max = Integer.MIN_VALUE;
+        for (int i = 0; i < n; i++) {
+            if (arr[i] > max) {
+                max = arr[i];
+            }
+        }
+        int fre[] = new int[max + 1];
+        for (int i = 0; i < n; i++) {
+            fre[arr[i]]++;
+        }
+        for (int i = 0; i < max + 1; i++) {
+            if (fre[i] > (n / k)) {
+                System.out.println(i);
+            }
+        }
+        //TIME COMPLEXITY => O(n + max)
+        // SPACE COMPLEXITY => O(MAX)
+
+        // METHOD - 2 => USING HASHMAP
+        // int arr[] = {2, 3, 3, 3, 4, 6};
+        // int n = arr.length;
+        // int k = 3;
+        // HashMap<Integer, Integer> Map = new HashMap<Integer, Integer>();
+        // for (int i = 0; i < n; i++) {
+        //     if (Map.containsKey(arr[i])) {
+        //         int x = arr[i];
+        //         Map.put(arr[i], x + 1);
+        //     } else {
+        //         Map.put(arr[i], 1);
+        //     }
+        // }
+        // for (int i : Map.keySet()) {
+        //     if (Map.get(i) > n / k) {
+        //         System.out.println(i);
+        //     }
+        // }
+        // TIME COMPLEXITY => O(n)
+        // SPACE COMPLEXITY => O(n)
+    }
+}
