@@ -1,0 +1,46 @@
+
+public class LargeFactorial {
+
+    // METHOD - 1 USING => USING RECURSION(FOR SMALL N)
+    // public static int Factorial(int n) {
+    //     if (n == 0) {
+    //         return 1;
+    //     }
+    //     return n * Factorial(n - 1);
+    // }
+    // TIME COMPLEXITY => O(n)
+    // SPACE COMPLEXITY => O(n)
+    // METHOD - 2 => USING MANUAL ARRAY SIMULATION(NO BIGINTEGER)
+    public static void Factorial(int n) {
+        int res[] = new int[5000];
+        res[0] = 1;
+        int resSize = 1;
+        for (int i = 2; i <= n; i++) {
+            resSize = multiply(res, resSize, i);
+        }
+        for (int i = resSize - 1; i >= 0; i--) {
+            System.out.print(res[i]);
+        }
+    }
+
+    public static int multiply(int res[], int resSize, int i) {
+        int carry = 0;
+        for (int x = 0; x < resSize; x++) {
+            int prod = res[x] * i + carry;
+            res[x] = prod % 10;
+            carry = prod / 10;
+        }
+        while (carry > 0) {
+            res[resSize] = carry % 10;
+            carry = carry / 10;
+            resSize++;
+        }
+        return resSize;
+    }
+
+    public static void main(String[] args) {
+        int n = 10;
+        // System.out.println(Factorial(n));
+        Factorial(n);
+    }
+}
