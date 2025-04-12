@@ -1,0 +1,43 @@
+
+public class SubArraySumGreaterThanX {
+
+    public static int FindSubArray(int arr[], int n, int x) {
+        // METHOD - 1 USING SLIDING WINDOW
+        // int i = 0, j = 0, sum = 0;
+        // int minLen = Integer.MAX_VALUE;
+        // while (j < n) {
+        //     sum += arr[j];
+        //     while (sum > x) {
+        //         minLen = Math.min(minLen, j - i + 1);
+        //         sum -= arr[i];
+        //         i++;
+        //     }
+        //     j++;
+        // }
+        // return minLen;
+        // TIME COMPLEXITY => O(n)
+        // SPACE COMPLEXITY => O(1)
+
+        // METHOD - 2 => USING THE NESTED LOOPS
+        int minLen = Integer.MAX_VALUE;
+        for (int i = 0; i < n; i++) {
+            int curSum = 0;
+            for (int j = i; j < n; j++) {
+                curSum += arr[j];
+                if (curSum > x) {
+                    minLen = Math.min(minLen, j - i + 1);
+                }
+            }
+        }
+        return minLen;
+        // TIME COMPLEXITY => O(n^2)
+        // SPACE COMPLEXITY =>O(1)
+    }
+
+    public static void main(String[] args) {
+        int arr[] = {1, 4, 45, 6, 0, 19};
+        int n = arr.length;
+        int x = 51;
+        System.out.println(FindSubArray(arr, n, x));
+    }
+}
