@@ -1,0 +1,41 @@
+
+import java.util.HashSet;
+
+public class SubarrayWithZero {
+
+    public static boolean CheckZero(int arr[]) {
+        int n = arr.length;
+        int curSum = 0;
+        // METHOD - 1 => USING NESTED LOOPS
+        // for (int i = 0; i < n; i++) {
+        //     curSum = 0;
+        //     for (int j = 1; j < n; j++) {
+        //         curSum += arr[j];
+        //         if (curSum == 0) {
+        //             return true;
+        //         }
+        //     }
+        // }
+        // return false;
+        // TIME COMPLEXITY => O(n^2)
+        // SPACE COMPLEXITY => O(1)
+
+        // METHOD - 3 => USING HASH SET
+        HashSet<Integer> set = new HashSet<Integer>();
+        for (int i = 0; i < n; i++) {
+            curSum += arr[i];
+            if (curSum == 0 || set.contains(curSum)) {
+                return true;
+            }
+            set.add(curSum);
+        }
+        return false;
+        // TIME COMPLEXITY => O(n)
+        // SPACE COMPLEXITY =>O(n)
+    }
+
+    public static void main(String[] args) {
+        int arr[] = {4, 2, -3, 1, 6};
+        System.out.println(CheckZero(arr));
+    }
+}
