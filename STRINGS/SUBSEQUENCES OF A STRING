@@ -1,0 +1,40 @@
+
+public class SubsequencesOfString {
+
+    // METHOD - 1 => USING BIT MANIPULATION
+    // public static String Subsequences(String s, int i, int n) {
+    //     StringBuilder str = new StringBuilder();
+    //     for (int j = 0; j < n; j++) {
+    //         if ((i & (1 << j)) != 0) {
+    //             str.append(s.charAt(j));
+    //         }
+    //     }
+    //     return str.toString();
+    // }
+    // TIME COMPLEXITY => O(n*2^n)
+    // SPACE COMPLEXITY => O(n)
+    // METHOD - 2 => USING RECURSION
+    public static void RecursionSub(String s, int i, String str) {
+        if (i == s.length()) {
+            System.out.println(str);
+            return;
+        }
+        char ch = s.charAt(i);
+        // want to add
+        RecursionSub(s, i + 1, str + ch);
+        // no want to add
+        RecursionSub(s, i + 1, str);
+    }
+
+    // TIME COMPLEXITY => O(2^n)
+    // SPACE COMPLEXITY => O(n)
+    public static void main(String args[]) {
+        String s = "abc";
+        // int n = s.length();
+        // for (int i = 0; i < (1 << n); i++) {
+        //     System.out.println(Subsequences(s, i, n));
+        // }
+        int i = 0;
+        RecursionSub(s, i, "");
+    }
+}
