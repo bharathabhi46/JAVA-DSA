@@ -1,0 +1,44 @@
+
+public abstract class CountAndSay {
+
+    public static void main(String args[]) {
+        // METHOD - 1 USING RUM LENGTH ENCODING
+        int n = 5;
+        String s = "1";
+        // while (n-- > 1) {
+        //     int c = 1;
+        //     String t = "";
+        //     for (int i = 1; i < s.length(); i++) {
+        //         if (s.charAt(i) == s.charAt(i - 1)) {
+        //             c++;
+        //         } else {
+        //             t += c + "" + s.charAt(i - 1);
+        //             c = 1;
+        //         }
+        //     }
+        //     t += c + "" + s.charAt(s.length() - 1);
+        //     s = t;
+        // }
+        // System.out.println(s);
+        // TIME COMPLEXITY => O(n*2^n)
+        // SPACE COMPLEXITY => O(2^n)
+
+        // METHOD - 2 => USING STRING BUILDER(OPTIMIZED)
+        while (n-- > 1) {
+            int c = 1;
+            StringBuilder t = new StringBuilder();
+            for (int i = 1; i < s.length(); i++) {
+                if (s.charAt(i) == s.charAt(i - 1)) {
+                    c++;
+                } else {
+                    t = t.append(c).append(s.charAt(i - 1));
+                    c = 1;
+                }
+            }
+            t = t.append(c).append(s.charAt(s.length() - 1));
+            s = t.toString();
+        }
+        System.out.println(s);
+    }
+
+}
