@@ -1,0 +1,83 @@
+
+public class CountOfNumberOfAGivenStringInMatrix {
+
+    public static int[] buildLps(String pat, int m) {
+        int lps[] = new int[m];
+        int i = 1;
+        int len = 0;
+        lps[0] = 0;
+        while (i < m) {
+            if (pat.charAt(i) == pat.charAt(len)) {
+                len++;
+                lps[i] = len;
+                i++;
+            } else {
+                if (len != 0) {
+                    len = lps[len - 1];
+                } else {
+                    lps[i] = 0;
+                    i++;
+                }
+            }
+        }
+        return lps;
+    }
+
+    public static int kmp(String pat, String txt) {
+        int m = pat.length();
+        int n = txt.length();
+        int c = 0;
+        int lps[] = buildLps(pat, m);
+        int i = 0;
+        int j = 0;
+        while (j < m && i < n) {
+            if (pat.charAt(j) == txt.charAt(i)) {
+                i++;
+                j++;
+                if (j == m) {
+                    c++;
+
+                }
+            } else if (i < n && pat.charAt(j) != txt.charAt(i)) {
+                if (j != 0) {
+                    j = lps[j - 1];
+                } else {
+                    i++;
+                }
+            }
+        }
+        return c;
+    }
+
+    public static void main(String[] args) {
+        String s = "GREEK";
+        String mat[] = {"BBABBM", "CBMBBA", "IBABBG",
+            "GOZBBI", "ABBBBC", "MCIGAM"};
+        int n = mat.length;
+        int m = mat[0].length();
+        int ans = 0;
+        // ROW WISE
+        for (int i = 0; i < n; i++) {
+            String text = mat[i];
+            // LEFT TO RIGHT MATCH
+            ans += kmp(s, text);
+            // RIGHT TO LEFT MATCH
+            ans += kmp(s, new StringBuilder(text).reverse().toString());
+        }
+
+        // COLUMN WISE
+        for (int i = 0; i < m; i++) {
+            StringBuilder text = new StringBuilder();
+            for (int j = 0; j < n; j++) {
+                text.append(mat[j].charAt(i));
+            }
+            // TOP TO DOWN
+            ans += kmp(s, text.toString());
+            // DOWN TO TOP
+            ans += kmp(s, text.reverse().toString());
+        }
+        System.out.println(ans);
+    }
+}
+// TIME COMPLEXITY =>O(nk)
+// SPACE COMPLEXITY => O(m+max(n,k))
