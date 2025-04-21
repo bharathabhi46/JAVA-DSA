@@ -1,0 +1,28 @@
+
+public class CountNoOfSetBits {
+
+    public static void main(String args[]) {
+        int n = 6;
+        int c = 0;
+        // METHOD - 1 => BASIC BIT MANIPULATION
+        // while (n > 0) {
+        //     if ((n & 1) == 1) {
+        //         c++;
+        //     }
+        //     n = n >> 1;
+        // }
+        // System.out.println(c);
+        // TIME COMPLEXITY => O(log n)
+        // SPACE COMPLEXITY => O(1)
+
+        // METHOD - 2 => BRIAN KERNIGHANS'S ALGORITHM
+        // IT UNSETS THE RIGHT MOST BIT IN EVERY ITERATION
+        while (n > 0) {
+            n = n & (n - 1);
+            c++;
+        }
+        System.out.println(c);
+        // TIME COMPLEXITY => O(k) K=> NO OF SET BITS
+        // SPACE COMPLEXIYT => O(1)
+    }
+}
