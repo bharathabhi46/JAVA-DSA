@@ -1,0 +1,14 @@
+
+public class PowerSet {
+
+    public static void main(String[] args) {
+        int l = 5;
+        int r = 7;
+        while (l < r) {
+            r = r & (r - 1);
+        }
+        System.out.println(r);
+        // TIME COMPLEXITY => O(log n)
+        // SPACE COMPLEXITY => O(1)
+    }
+}
