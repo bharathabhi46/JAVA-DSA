@@ -1,0 +1,33 @@
+
+public class UniqueEle {
+
+    public static void main(String args[]) {
+        // METHOD - 1 => USING THE XOR OPERATOR
+        int arr[] = {1, 2, 3, 2, 1, 4};
+        int n = arr.length;
+        int xorAll = 0;
+        for (int i : arr) {
+            xorAll ^= i;
+        }
+        int checkBit = xorAll & -xorAll;
+        int n1 = 0;
+        int n2 = 0;
+
+        for (int nums : arr) {
+            if ((nums & checkBit) == 0) {
+                n1 ^= nums;
+            } else {
+                n2 ^= nums;
+            }
+        }
+        if (n1 > n2) {
+            System.out.println(n1);
+            System.out.println(n2);
+        } else {
+            System.out.println(n1);
+            System.out.println(n2);
+        }
+        // TIME COMPLEXITY => O(n)
+        // SPACE COMPLEXITY =>O(1)
+    }
+}
