@@ -1,0 +1,26 @@
+
+public class PositionOfSetBit {
+
+    public static void main(String[] args) {
+        // METHOD - 1 => USING THE BRIAN ALGORITHM
+        int n = 2;
+        int pos = 1;
+        // if (n == 0 || (n & (n - 1)) != 0) {
+        //     System.out.println(-1);
+        // }
+        // while ((n & 1) == 0) {
+        //     n = n >> 1;
+        //     pos++;
+        // }
+        // System.out.println(pos);
+        // TIME COMPLEXITY => O(log n)
+        // SPACE COMPLEXITY => O(1)
+
+        // METHOD - 2 => USING TRALING ZEROS
+        if (n == 0 || (n & (n - 1)) != 0) {
+            System.out.println(-1);
+        }
+        int c = Integer.numberOfTrailingZeros(n) + 1;
+        System.out.println(c);
+    }
+}
