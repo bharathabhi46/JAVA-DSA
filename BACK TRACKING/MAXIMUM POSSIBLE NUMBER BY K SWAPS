@@ -1,0 +1,74 @@
+
+public class LargestNumberAfterkSwaps {
+// METHOD - 1 => OPTIMIZED APPROACH (GREEDY + PRUNING) BACK TRACKING
+
+    static String max;
+
+    // public static void solveMaxNum(char arr[], int k, int index) {
+    //     if (k == 0) {
+    //         return;
+    //     }
+    //     int n = arr.length;
+    //     char maxDigit = arr[index];
+    //     for (int i = 0; i < n; i++) {
+    //         if (arr[i] > maxDigit) {
+    //             maxDigit = arr[i];
+    //         }
+    //     }
+    //     // we can swap the first digit with larger digit which is towards right only if there are not same.
+    //     if (maxDigit != arr[index]) {
+    //         k--;
+    //     }
+    //     for (int i = n - 1; i >= 0; i--) {
+    //         if (arr[i] == maxDigit) {
+    //             swap(arr, i, index);
+    //             String cur = new String(arr);
+    //             if (cur.compareTo(max) > 0) {
+    //                 max = cur;
+    //             }
+    //             solveMaxNum(arr, k, index + 1);
+    //             swap(arr, i, index);
+    //         }
+    //     }
+    // }
+    // METHOD - 2 => BRTUE FORCE APPRAOCH
+    public static void solceMax(char arr[], int k) {
+        if (k == 0) {
+            return;
+        }
+        int n = arr.length;
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = i + 1; j < n; j++) {
+                if (arr[i] != arr[j]) {
+                    swap(arr, i, j);
+                    String cur = new String(arr);
+                    if (cur.compareTo(max) > 0) {
+                        max = cur;
+                    }
+                    solceMax(arr, k - 1);
+                    swap(arr, i, j);
+                }
+            }
+        }
+    }
+
+    public static void swap(char arr[], int i, int j) {
+        char temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+
+    public static String MaxNum(String s, int k) {
+        max = s;
+        char arr[] = s.toCharArray();
+        // solveMaxNum(arr, k, 0);
+        solceMax(arr, k);
+        return max;
+    }
+
+    public static void main(String args[]) {
+        String s = "1034";
+        int k = 2;
+        System.out.println(MaxNum(s, k));
+    }
+}
