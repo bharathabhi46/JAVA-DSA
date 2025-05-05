@@ -1,0 +1,68 @@
+
+public class SubsetSumPartition {
+
+    static Boolean memo[][];  // Memoization array
+
+    // Helper recursive function with memoization
+    public static boolean solveSubset(int arr[], int target, int index, int sum) {
+
+        // Base case: if the sum is equal to the target
+        if (sum == target) {
+            return true;
+        }
+
+        // Base case: if sum exceeds the target or we've considered all elements
+        if (sum > target || index == arr.length) {
+            return false;
+        }
+
+        // Check if this (index, sum) pair has been already computed
+        if (memo[index][sum] != null) {
+            return memo[index][sum];  // Return the result from the memo table
+        }
+
+        // Try to include arr[index] in the subset
+        boolean include = solveSubset(arr, target, index + 1, sum + arr[index]);
+
+        // Try to exclude arr[index] from the subset
+        boolean exclude = solveSubset(arr, target, index + 1, sum);
+
+        // Store the result in memoization table and return
+        memo[index][sum] = include || exclude;
+        return memo[index][sum];
+    }
+
+    // Main function to check if the array can be partitioned into two equal subsets
+    static boolean equalPartition(int arr[]) {
+        // Calculate the total sum of array elements
+        int totalSum = 0;
+        for (int i = 0; i < arr.length; i++) {
+            totalSum += arr[i];
+        }
+
+        // If the total sum is odd, we can't partition it into two equal subsets
+        if (totalSum % 2 != 0) {
+            return false;
+        }
+
+        // The target sum we need to check for is half of the total sum
+        int target = totalSum / 2;
+
+        // Initialize the memoization table with null values
+        memo = new Boolean[arr.length][target + 1];
+
+        // Call the recursive function starting from index 0 and sum 0
+        return solveSubset(arr, target, 0, 0);
+    }
+
+    // Main function to run the program
+    public static void main(String[] args) {
+        // Test cases
+        int[] arr1 = {1, 5, 11, 5};
+
+        // Check if equal partition is possible for each test case
+        System.out.println(equalPartition(arr1));
+    }
+}
+// TIME COMPLEXITY => O(n*target)
+// SPACE COMPLEXITY => O(n*target)
