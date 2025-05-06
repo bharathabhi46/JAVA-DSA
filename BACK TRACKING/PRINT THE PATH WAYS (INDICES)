@@ -1,0 +1,29 @@
+
+import java.util.*;
+
+public class PrintPathWays {
+
+    public static List<List<Integer>> solveMaze(int mat[][], int n, int m, int i, int j, List<Integer> a) {
+        List<List<Integer>> arr = new ArrayList<>();
+        if (i >= n || j >= m) {
+            return arr;
+        }
+        a.add(mat[i][j]);
+        if (i == n - 1 && j == m - 1) {
+            arr.add(new ArrayList<>(a));
+            return arr;
+        }
+        arr.addAll(solveMaze(mat, n, m, i + 1, j, new ArrayList<>(a)));
+        arr.addAll(solveMaze(mat, n, m, i, j + 1, new ArrayList<>(a)));
+        return arr;
+    }
+
+    public static void main(String args[]) {
+        int mat[][] = {{1, 2, 3}, {4, 5, 6}};
+        int n = mat.length;
+        int m = mat[0].length;
+
+        List<List<Integer>> re = solveMaze(mat, n, m, 0, 0, new ArrayList<>());
+        System.out.println(re);
+    }
+}
