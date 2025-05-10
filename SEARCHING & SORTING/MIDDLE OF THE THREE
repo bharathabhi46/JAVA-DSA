@@ -1,0 +1,28 @@
+
+import java.util.*;
+
+public class MiddleOfThree {
+
+    // METHOD - 1 => BRUTE FORCE APPROACH
+    public static void main(String[] args) {
+        int a = 30, b = 14, c = 50;
+        if ((a > b && a < c) || (a < b && a > c)) {
+            System.out.println(a);
+        }
+        if ((b > a && b < c) || (b < a && b > c)) {
+            System.out.println(b);
+        }
+        if ((c > a && c < b) || (c < a && c > b)) {
+            System.out.println(c);
+        }
+        // TIME COMPLEXITY => O(1)
+        // SPACE COMPLEXITY =>O(1)
+
+        // METHOD - 2 => OPTIMIZED APPROACH
+        int arr[] = {a, b, c};
+        Arrays.sort(arr);
+        System.out.println(arr[1]);
+        // TIME COMPLEXITY => O(log N)
+        // SPACE COMPLEXITY => O(1)
+    }
+}
