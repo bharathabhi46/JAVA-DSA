@@ -1,0 +1,30 @@
+
+public class CountSqaures {
+
+    public static void main(String args[]) {
+        // METHOD - 1 => BINARY SEARCH;
+        int n = 9;
+        // int l = 1;
+        // int h = n - 1;
+        // int ans = 0;
+        // while (l <= h) {
+        //     int m = l + ((h - l) >> 1);
+        //     long s = 1L * m * m;
+        //     if (s < n) {
+        //         ans = m;
+        //         l = m + 1;
+        //     } else {
+        //         h = m - 1;
+        //     }
+        // }
+        // System.out.println(ans);
+        // TIME COMPLEXITY => O(log n)
+        // SPACE COMPLEXITY => O(1)
+
+        // METHOD - 2 => IN BUILT FUNCTION
+        int re = (int) Math.sqrt(n - 1);
+        System.out.println(re);
+        // TIME COMPLEXITY => O(1)
+        // SPACE COMPLEXITY => O(1)
+    }
+}
