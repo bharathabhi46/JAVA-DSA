@@ -1,0 +1,45 @@
+
+import java.util.HashMap;
+
+public class MajorityElement {
+
+    public static void main(String[] args) {
+        // METHOD - 1 => MOORE'S VOTING ALGORITHM
+        //     int arr[] = {1, 1, 2, 1, 3, 5, 1};
+        //     int candidate = arr[0];
+        //     int count = 1;
+        //     for (int i = 1; i < arr.length; i++) {
+        //         if (count == 0) {
+        //             candidate = arr[i];
+        //             count = 1;
+        //         } else if (arr[i] == candidate) {
+        //             count++;
+        //         } else {
+        //             count--;
+        //         }
+        //     }
+        //     count = 0;
+        //     for (int num : arr) {
+        //         if (num == candidate) {
+        //             count++;
+        //         }
+        //     }
+        //     int re = count > arr.length / 2 ? candidate : -1;
+        //     System.out.println(re);
+        // TIME COMPLEXITY => O(n)
+        // SPACE COMPLEXITY => O(1)
+
+        // METHOD - 2 BRUTE FORCE APPROACH
+        HashMap<Integer, Integer> fre = new HashMap<>();
+        int arr[] = {1, 1, 2, 1, 3, 5, 1};
+        int n = arr.length;
+        for (int num : arr) {
+            fre.put(num, fre.getOrDefault(num, 0) + 1);
+            if (fre.get(num) > n / 2) {
+                System.out.println(num);
+            }
+        }
+        // TIME COMPLEXITY => O(n)
+        // SPACE COMPLEXITY => O(n)
+    }
+}
