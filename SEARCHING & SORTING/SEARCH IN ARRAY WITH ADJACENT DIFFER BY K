@@ -1,0 +1,34 @@
+
+public class SearchInArrayWhereAdjacentDifferByK {
+
+    public static void main(String args[]) {
+
+        // METHOD - 1 => SKIP SEACH WITH MAX DIFFERNCE K (OPTIMIZED APPROACH)
+        int arr[] = {2, 4, 5, 7, 7, 6};
+        int n = arr.length;
+        int x = 6;
+        int k = 2;
+        int i = 0;
+        while (i < n) {
+            if (arr[i] == x) {
+                System.out.println(i);
+                break;
+            }
+            // MOVES A STEP FURTHER THAN USUAL
+            // SINCE THE ADJACENT ELEMENTS HAS A DIFFERENCE OF THE K SO IT IS MOVING SO SLOW
+            i = i + Math.max(1, Math.abs(arr[i] - x) / k);
+        }
+        // TIME COMPLEXITY =>O(n)
+        // SPACE COMPLEXITY => O(1)
+
+        // METHOD - 2 => LINEAR SEARCH 
+        // for (int i = 0; i < n; i++) {
+        //     if (arr[i] == x) {
+        //         System.out.println(i);
+        //         break;
+        //     }
+        // }
+        // TIME COMPLEXITY =>O(n)
+        // SPACE COMPLEXITY => O(1)
+    }
+}
