@@ -1,0 +1,48 @@
+
+public class TripletsWithSmallerSum {
+
+    public static void main(String[] args) {
+        // METHOD - 1 TWO POINTER + SORTING
+        int arr[] = {-2, 0, 1, 3};
+        int target = 2;
+        int c = 0;
+        int n = arr.length;
+        for (int i = 0; i < n - 2; i++) {
+            if (i > 0 && arr[i] == arr[i - 1]) {
+                continue;
+            }
+            int l = i + 1;
+            int r = n - 1;
+            while (l < r) {
+                long sum = (long) arr[i] + arr[l] + arr[r];
+                if (sum < target) {
+                    c += (r - l);
+                    l++;
+                } else {
+                    r--;
+                }
+            }
+        }
+        System.out.println(c);
+        // TIME COMPLEXITY => O(n logn + n^2)
+        // SPACE COMPELXITY => O(1)
+
+        // METHOD - 1 BRUTE FORCE APPRROACH
+        // int sum = 0;/
+        int cou = 0;
+        for (int i = 0; i < n; i++) {
+            for (int j = i + 1; j < n; j++) {
+                int sum = 0;
+                for (int k = j + 1; k < n; k++) {
+                    sum = arr[i] + arr[j] + arr[k];
+                    if (sum < target) {
+                        cou++;
+                    }
+                }
+            }
+        }
+        System.out.println(cou);
+        // TIME COMPLEXITY => O(N^3)
+        // SPACE COMPLEXITY => O(1)
+    }
+}
