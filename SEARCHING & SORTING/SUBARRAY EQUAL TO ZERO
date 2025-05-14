@@ -1,0 +1,37 @@
+
+public class SubArraySumEqualToZero {
+
+    public static void main(String args[]) {
+        // METHOD - 1 => USING THE HASHMAP
+        int arr[] = {0, 0, 5, 5, 0, 0};
+        int n = arr.length;
+        // int count = 0;
+        // int sum = 0;
+        // HashMap<Integer, Integer> map = new HashMap<>();
+        // map.put(0, 1);
+        // for (int num : arr) {
+        //     sum += num;
+        //     if (map.containsKey(sum)) {
+        //         count += map.get(sum);
+        //     }
+        //     map.put(sum, map.getOrDefault(sum, 0) + 1);
+        // }
+        // System.out.println(count);
+        // TIME COMPLEXITY => O(N)
+        // SPACE COMPLEXITY => O(N)
+        // METHOD - 2 => BRTUE FORCE APPROACH
+        int co = 0;
+        for (int i = 0; i < n; i++) {
+            int c = 0;
+            for (int j = i; j < n; j++) {
+                c += arr[j];
+                if (c == 0) {
+                    co++;
+                }
+            }
+        }
+        System.out.println(co);
+        // TIME COMPLEXITY => O(n^2)
+        // SPACE COMPLEXITY => O(1)
+    }
+}
