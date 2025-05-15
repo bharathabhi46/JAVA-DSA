@@ -1,0 +1,43 @@
+
+public class ProductArrayPuzzle {
+// METHOD - 1 => BRUTE FORCE APPROACH
+
+    public static int[] productExceptSelf(int arr[]) {
+        int n = arr.length;
+        int re[] = new int[n];
+        //     for (int i = 0; i < n; i++) {
+        //         int p = 1;
+        //         for (int j = 0; j < n; j++) {
+        //             if (i != j) {
+        //                 p *= arr[j];
+        //             }
+        //         }
+        //         re[i] = p;
+        //     }
+        //     return re;
+        // }
+        // TIME COMPLEXITY => O(n^2)
+        // SPACE COMPLEXITY => O(n)
+
+        // METHOD - 2 OPTIMIZED APPROACH
+        int p = 1;
+        for (int i = 0; i < n; i++) {
+            re[i] = p;
+            p *= arr[i];
+        }
+        int s = 1;
+        for (int i = n - 1; i >= 0; i--) {
+            re[i] *= s;
+            s *= arr[i];
+        }
+        return re;
+    }
+
+    public static void main(String[] args) {
+        int arr[] = {1, 2, 3, 4};
+        int result[] = productExceptSelf(arr);
+        for (int num : result) {
+            System.out.print(num + " ");
+        }
+    }
+}
