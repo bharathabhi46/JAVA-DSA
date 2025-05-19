@@ -1,0 +1,198 @@
+
+public class LinkedListDsa {
+
+    static Node head;
+    static int size;
+// Node Class Constructor
+
+    static class Node {
+
+        String data;
+        Node next;
+
+        Node(String data) {
+            this.data = data;
+            this.next = null;
+            size++;
+        }
+    }
+// Add At First
+
+    public static void addFirst(String data) {
+        Node newNode = new Node(data);
+        if (head == null) {
+            head = newNode;
+            return;
+        }
+        newNode.next = head;
+        head = newNode;
+    }
+// Add At Last
+
+    public static void addLast(String data) {
+        Node newNode = new Node(data);
+        if (head == null) {
+            head = newNode;
+            return;
+        }
+        Node curNode = head;
+        while (curNode.next != null) {
+            curNode = curNode.next;
+        }
+        curNode.next = newNode;
+    }
+// Add At the Middle
+
+    public static void addMiddle(String data, int index) {
+        if (index > size || index < 0) {
+            System.out.println("invalid index");
+            return;
+        }
+        Node newNode = new Node(data);
+        if (head == null || index == 0) {
+            head = newNode;
+            return;
+        }
+        Node curNode = head;
+        for (int i = 0; i < size; i++) {
+            if (i == index) {
+                Node nextNode = curNode.next;
+                curNode.next = newNode;
+                newNode.next = nextNode;
+                break;
+            }
+            curNode = curNode.next;
+        }
+    }
+// Get the Size Of The Linked List
+
+    public static int getSize() {
+        return size;
+    }
+// Delete First
+
+    public static void deleteFirst() {
+        if (head == null) {
+            System.out.println("List is empty");
+            return;
+        }
+        head = head.next;
+    }
+// Delete Last
+
+    public static void deleteLast() {
+        if (head == null) {
+            System.out.println("List is Empty");
+            return;
+        }
+        Node prevNode = head;
+        Node curNode = head.next;
+        while (curNode.next != null) {
+            curNode = curNode.next;
+            prevNode = prevNode.next;
+        }
+        prevNode.next = null;
+    }
+// Reverse The Linked List
+
+    public static void reverseLL() {
+        if (head == null || head.next == null) {
+            return;
+        }
+        Node prev = head;
+        Node cur = head.next;
+        while (cur != null) {
+            Node nextNode = cur.next;
+            cur.next = prev;
+            prev = cur;
+            cur = nextNode;
+        }
+        head.next = null;
+        head = prev;
+    }
+// Search For The Index
+
+    public static int searchInd(String data) {
+        if (head == null) {
+            System.out.println("List is empty");
+            return -1;
+        }
+        int index = 0;
+        Node curNode = head;
+        while (curNode != null) {
+            if (curNode.data.equals(data)) {
+                return index;
+            }
+            curNode = curNode.next;
+            index++;
+        }
+        return -1;
+    }
+
+    // Print The List
+    public static void printList() {
+        if (head == null) {
+            System.out.println("List is empty");
+            return;
+        }
+        Node curNode = head;
+        while (curNode != null) {
+            System.out.print(curNode.data + "->");
+            curNode = curNode.next;
+        }
+        System.err.println("null");
+    }
+
+    // paliindrome Linked List
+    public static Node solveSecond(Node head) {
+        Node prev = null;
+        Node cur = head;
+        while (cur != null) {
+            Node next = cur.next;
+            cur.next = prev;
+            // update
+            prev = cur;
+            cur = next;
+        }
+        return prev;
+    }
+
+    public static Node solveFirst(Node head) {
+        Node first = head;
+        Node second = head;
+        while (first.next != null && first.next.next != null) {
+            first = first.next.next;
+            second = second.next;
+        }
+        return second;
+    }
+
+    public static boolean isPalindrome(Node head) {
+        if (head == null || head.next == null) {
+            return true;
+        }
+        Node firstPart = solveFirst(head);
+        Node secondPart = solveSecond(firstPart.next);
+        Node firstPhase = head;
+        while (secondPart != null) {
+            if (firstPhase.data != secondPart.data) {
+                return false;
+            }
+            secondPart = secondPart.next;
+            firstPhase = firstPhase.next;
+        }
+        return true;
+    }
+
+    public static void main(String args[]) {
+        LinkedListDsa list = new LinkedListDsa();
+        list.addLast("1");
+        list.addLast("2");
+        list.addLast("3");
+        list.addLast("4");
+        list.addLast("5");
+        list.addMiddle("100", 2);
+        list.printList();
+        System.out.println(list.isPalindrome(head));
+    }
+}
