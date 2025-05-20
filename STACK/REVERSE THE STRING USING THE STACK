@@ -1,0 +1,71 @@
+
+public class ReverseStringUsingStack {
+
+    static class Node {
+
+        char data;
+        Node next;
+
+        Node(char data) {
+            this.data = data;
+            this.next = null;
+        }
+    }
+
+    // Stack class implemented using Linked List
+    static class Stack {
+
+        Node head = null;
+
+        // Check if the stack is empty
+        public boolean isEmpty() {
+            return head == null;
+        }
+
+        // Push character onto stack
+        public void push(char data) {
+            Node newNode = new Node(data);
+            newNode.next = head;
+            head = newNode;
+        }
+
+        // Pop character from stack
+        public char pop() {
+            if (isEmpty()) {
+                throw new RuntimeException("Stack is empty!");
+            }
+            char topData = head.data;
+            head = head.next;
+            return topData;
+        }
+    }
+
+    // Function to reverse the given string using stack
+    public static String reverse(String s) {
+        Stack stack = new Stack();
+
+        // Push all characters of string to stack
+        for (int i = 0; i < s.length(); i++) {
+            stack.push(s.charAt(i));
+        }
+
+        // Pop characters and build reversed string
+        StringBuilder reversed = new StringBuilder();
+        while (!stack.isEmpty()) {
+            reversed.append(stack.pop());
+        }
+
+        return reversed.toString();
+    }
+
+    public static void main(String[] args) {
+        String input1 = "GeeksforGeeks";
+        String input2 = "Geek";
+
+        System.out.println("Original: " + input1);
+        System.out.println("Reversed: " + reverse(input1));
+
+        System.out.println("Original: " + input2);
+        System.out.println("Reversed: " + reverse(input2));
+    }
+}
