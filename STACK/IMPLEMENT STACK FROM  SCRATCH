@@ -1,0 +1,91 @@
+
+public class StackFromScratch {
+
+    // Node class to represent each element in the stack
+    static class Node {
+
+        int data;
+        Node next;
+
+        Node(int data) {
+            this.data = data;
+            this.next = null;
+        }
+    }
+
+    // Stack class using Linked List
+    static class Stack {
+
+        Node top = null;
+
+        // Push an element onto the stack
+        public void push(int data) {
+            Node newNode = new Node(data);
+            newNode.next = top;
+            top = newNode;
+        }
+
+        // Pop an element from the stack
+        public int pop() {
+            if (isEmpty()) {
+                throw new RuntimeException("Stack Underflow! Cannot pop from empty stack.");
+            }
+            int poppedValue = top.data;
+            top = top.next;
+            return poppedValue;
+        }
+
+        // Peek at the top element
+        public int peek() {
+            if (isEmpty()) {
+                throw new RuntimeException("Stack is empty! Cannot peek.");
+            }
+            return top.data;
+        }
+
+        // Check if the stack is empty
+        public boolean isEmpty() {
+            return top == null;
+        }
+
+        // Display stack elements
+        public void display() {
+            if (isEmpty()) {
+                System.out.println("Stack is empty.");
+                return;
+            }
+
+            Node current = top;
+            System.out.print("Stack elements (top to bottom): ");
+            while (current != null) {
+                System.out.print(current.data + " ");
+                current = current.next;
+            }
+            System.out.println();
+        }
+    }
+
+    // Main method to test the stack
+    public static void main(String[] args) {
+        Stack stack = new Stack();
+
+        stack.push(10);
+        stack.push(20);
+        stack.push(30);
+
+        stack.display();  // Output: Stack elements (top to bottom): 30 20 10
+
+        System.out.println("Top element: " + stack.peek());  // Output: 30
+
+        System.out.println("Popped: " + stack.pop());  // Output: 30
+        System.out.println("Popped: " + stack.pop());  // Output: 20
+
+        stack.display();  // Output: Stack elements (top to bottom): 10
+
+        System.out.println("Is empty? " + stack.isEmpty());  // Output: false
+
+        stack.pop();  // Now stack is empty
+
+        System.out.println("Is empty? " + stack.isEmpty());  // Output: true
+    }
+}
