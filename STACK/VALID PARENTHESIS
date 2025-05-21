@@ -1,0 +1,80 @@
+
+public class BalancedParenthesis {
+
+    static class Node {
+
+        char data;
+        Node next;
+
+        Node(char data) {
+            this.data = data;
+            this.next = null;
+        }
+    }
+
+    static class Stack {
+
+        static Node head = null;
+
+        public boolean isEmpty() {
+            return head == null;
+        }
+
+        public void add(char data) {
+            Node newNode = new Node(data);
+            if (isEmpty()) {
+                head = newNode;
+                return;
+            }
+            newNode.next = head;
+            head = newNode;
+        }
+
+        public char remove() {
+            if (isEmpty()) {
+                return '\0';
+            }
+            char top = head.data;
+            head = head.next;
+            return top;
+        }
+
+        public char peek() {
+            if (isEmpty()) {
+                return '\0';
+            }
+            return head.data;
+        }
+    }
+
+    public static boolean isValid(String s) {
+        Stack sta = new Stack();
+        // LOGIC IS HERE IS THE FIRST PARENTHESIS IS PUSHED AND IF THE SECOND PARENTHESIS IS NEXT TO PUSH THEN WE CHECK IF THE TOP IS THE FIRST AND CURRENT CHARACTER IS THE RIGHT OF ITS PARENTHESIS
+        for (char ch : s.toCharArray()) {
+            if (ch == '(' || ch == '{' || ch == '[') {
+                sta.add(ch);
+            } else {
+                if (sta.isEmpty()) {
+                    return false;
+                }
+                char top = sta.remove();
+                if (ch == ')' && top != '(' || ch == '}' && top != '{' || ch == ']' && top != '[') {
+                    return false;
+                }
+            }
+            // NOT NEED TO CHECK FOR THE FIRST PARARENTHESIS
+            //      if (c == '(') stack.push(')');
+            // else if (c == '{') stack.push('}');
+            // else if (c == '[') stack.push(']');
+            // else {
+            //     if (stack.isEmpty() || stack.pop() != c) return false;
+            // }
+        }
+        return sta.isEmpty();
+    }
+
+    public static void main(String[] args) {
+        String s = "(]";
+        System.out.println(isValid(s));
+    }
+}
