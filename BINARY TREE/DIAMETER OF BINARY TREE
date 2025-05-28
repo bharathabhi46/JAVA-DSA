@@ -1,0 +1,57 @@
+
+public class DiameterOfBinaryTree {
+
+    public static class Node {
+
+        int val;
+        Node left;
+        Node right;
+
+        Node(int val) {
+            this.val = val;
+        }
+    }
+
+    // Function to find height of tree
+    public static int height(Node root) {
+        if (root == null) {
+            return 0;
+        }
+
+        int leftHeight = height(root.left);
+        int rightHeight = height(root.right);
+
+        return Math.max(leftHeight, rightHeight) + 1;
+    }
+
+    // Function to find diameter of binary tree
+    public static int diameter(Node root) {
+        if (root == null) {
+            return 0;
+        }
+
+        int leftDiameter = diameter(root.left);
+        int rightDiameter = diameter(root.right);
+        int rootDiameter = height(root.left) + height(root.right);
+
+        return Math.max(rootDiameter, Math.max(leftDiameter, rightDiameter));
+    }
+
+    public static void main(String[] args) {
+        // Building tree:
+        //       1
+        //      / \
+        //     2   3
+        //    / \
+        //   4   5
+
+        Node root = new Node(1);
+        root.left = new Node(2);
+        root.right = new Node(3);
+        root.left.left = new Node(4);
+        root.left.right = new Node(5);
+
+        int result = diameter(root);
+        System.out.println("Diameter of the binary tree: " + result);
+    }
+}
