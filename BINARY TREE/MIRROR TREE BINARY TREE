@@ -1,0 +1,41 @@
+
+import java.util.*;
+
+public class MirrorInorderOnly {
+
+    static class Node {
+
+        int data;
+        Node left, right;
+
+        Node(int val) {
+            data = val;
+        }
+    }
+
+    public static void inorder(Node root, LinkedList<Integer> result) {
+        if (root == null) {
+            return;
+        }
+
+        inorder(root.left, result);
+        result.addFirst(root.data); // Key line: insert at front
+        inorder(root.right, result);
+    }
+
+    public static void main(String[] args) {
+        Node root = new Node(5);
+        root.left = new Node(3);
+        root.right = new Node(6);
+        root.left.left = new Node(2);
+        root.left.right = new Node(4);
+
+        LinkedList<Integer> result = new LinkedList<>();
+        inorder(root, result);
+
+        System.out.print("Mirror Inorder using addFirst: ");
+        for (int val : result) {
+            System.out.print(val + " ");
+        }
+    }
+}
