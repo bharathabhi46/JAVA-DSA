@@ -1,0 +1,63 @@
+
+public class BalancedBinaryTree {
+
+    // Definition for a binary tree node.
+    static class TreeNode {
+
+        int val;
+        TreeNode left;
+        TreeNode right;
+
+        TreeNode(int val) {
+            this.val = val;
+        }
+
+        TreeNode(int val, TreeNode left, TreeNode right) {
+            this.val = val;
+            this.left = left;
+            this.right = right;
+        }
+    }
+
+    static class Solution {
+
+        public int maxHeight(TreeNode root) {
+            if (root == null) {
+                return 0;
+            }
+            int left = maxHeight(root.left);
+            int right = maxHeight(root.right);
+            return Math.max(left, right) + 1;
+        }
+
+        public boolean isBalanced(TreeNode root) {
+            if (root == null) {
+                return true;
+            }
+            int leftHt = maxHeight(root.left);
+            int rightHt = maxHeight(root.right);
+            if (Math.abs(leftHt - rightHt) > 1) {
+                return false;
+            }
+            return isBalanced(root.left) && isBalanced(root.right);
+        }
+    }
+
+    public static void main(String[] args) {
+        // Creating a sample tree:
+        //       1
+        //      / \
+        //     2   3
+        //    / \
+        //   4   5
+
+        TreeNode root = new TreeNode(1);
+        root.left = new TreeNode(2, new TreeNode(4), new TreeNode(5));
+        root.right = new TreeNode(3);
+
+        Solution solution = new Solution();
+        boolean balanced = solution.isBalanced(root);
+
+        System.out.println("Is the tree balanced? " + balanced);
+    }
+}
