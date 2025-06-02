@@ -1,0 +1,62 @@
+
+import java.util.*;
+
+public class CheckIfValidBst {
+
+    static class TreeNode {
+
+        int val;
+        TreeNode left;
+        TreeNode right;
+
+        TreeNode() {
+        }
+
+        TreeNode(int val) {
+            this.val = val;
+        }
+
+        TreeNode(int val, TreeNode left, TreeNode right) {
+            this.val = val;
+            this.left = left;
+            this.right = right;
+        }
+    }
+
+    static class BinaryST {
+
+        public static void inOrderTraversal(TreeNode root, List<Integer> re) {
+            if (root == null) {
+                return;
+            }
+            inOrderTraversal(root.left, re);
+            re.add(root.val);
+            inOrderTraversal(root.right, re);
+        }
+
+        public boolean isValidBST(TreeNode root) {
+            List<Integer> re = new ArrayList<>();
+            inOrderTraversal(root, re);
+            for (int i = 0; i < re.size() - 1; i++) {
+                if (re.get(i) >= re.get(i + 1)) {
+                    return false;
+                }
+            }
+            return true;
+        }
+    }
+
+    public static void main(String[] args) {
+        TreeNode root = new TreeNode(2);
+        root.left = new TreeNode(1);
+        root.right = new TreeNode(3);
+        BinaryST bst = new BinaryST();
+        boolean result = bst.isValidBST(root);
+
+        if (result) {
+            System.out.println("The tree is a valid BST.");
+        } else {
+            System.out.println("The tree is not a valid BST.");
+        }
+    }
+}
