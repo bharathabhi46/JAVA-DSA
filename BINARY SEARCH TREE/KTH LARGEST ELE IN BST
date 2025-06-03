@@ -1,0 +1,50 @@
+
+import java.util.*;
+
+public class KthLargestEleInBst {
+
+    public static class TreeNode {
+
+        int val;
+        TreeNode left;
+        TreeNode right;
+
+        TreeNode() {
+        }
+
+        TreeNode(int val) {
+            this.val = val;
+        }
+
+        TreeNode(int val, TreeNode left, TreeNode right) {
+            this.val = val;
+            this.left = left;
+            this.right = right;
+        }
+    }
+
+    public static void inorder(TreeNode root, List<Integer> re) {
+        if (root == null) {
+            return;
+        }
+        inorder(root.left, re);
+        re.add(0, root.val);
+        inorder(root.right, re);
+    }
+
+    public static int kthSmallest(TreeNode root, int k) {
+        List<Integer> re = new ArrayList<>();
+        inorder(root, re);
+        return re.get(k - 1);
+    }
+
+    public static void main(String[] args) {
+        TreeNode root = new TreeNode(3);
+        root.left = new TreeNode(1);
+        root.left.right = new TreeNode(2);
+        root.right = new TreeNode(4);
+
+        int k = 1;
+        System.out.println(kthSmallest(root, k));
+    }
+}
