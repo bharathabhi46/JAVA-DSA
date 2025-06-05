@@ -1,0 +1,61 @@
+
+class Node {
+
+    int data;
+    Node left, right;
+
+    public Node(int d) {
+        data = d;
+        left = right = null;
+    }
+}
+
+public class CountEleInTheRange {
+
+    // Modified version of your original method with minimal changes
+    public static int inorder(Node root, int l, int h, int c) {
+        if (root == null) {
+            return c;
+        }
+
+        // Traverse left subtree
+        c = inorder(root.left, l, h, c);
+
+        // Count current node if in range
+        if (root.data >= l && root.data <= h) {
+            c++;
+        }
+
+        // Traverse right subtree
+        c = inorder(root.right, l, h, c);
+
+        return c;
+    }
+
+    public static int getCount(Node root, int l, int h) {
+        int c = 0;
+        return inorder(root, l, h, c);
+    }
+
+    // Example usage
+    public static void main(String[] args) {
+        /*
+                  10
+                 /  \
+                5   15
+               / \    \
+              3   7    18
+         */
+        Node root = new Node(10);
+        root.left = new Node(5);
+        root.right = new Node(15);
+        root.left.left = new Node(3);
+        root.left.right = new Node(7);
+        root.right.right = new Node(18);
+
+        int l = 7, h = 15;
+
+        int result = getCount(root, l, h);
+        System.out.println("Number of nodes in range [" + l + ", " + h + "]: " + result);
+    }
+}
