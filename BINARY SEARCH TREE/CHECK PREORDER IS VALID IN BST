@@ -1,0 +1,69 @@
+// Java program to construct BST from preorder traversal
+
+public class CheckPreorderIsValid {
+
+    static class Node {
+
+        int data;
+        Node left, right;
+
+        Node(int d) {
+            data = d;
+            left = right = null;
+        }
+    }
+
+    // Function to insert a node into BST
+    public static Node insert(Node root, int val) {
+        if (root == null) {
+            return new Node(val);
+        }
+        if (val < root.data) {
+            root.left = insert(root.left, val);
+        } else {
+            root.right = insert(root.right, val);
+        }
+        return root;
+    }
+
+    // Function that constructs BST from its preorder traversal
+    public static Node bstFromPreorder(int[] pre) {
+        Node root = null;
+        for (int val : pre) {
+            root = insert(root, val);
+        }
+        return root;
+    }
+
+    // Optional: Inorder traversal (sorted order for BST)
+    public static void inorderTraversal(Node root) {
+        if (root != null) {
+            inorderTraversal(root.left);
+            System.out.print(root.data + " ");
+            inorderTraversal(root.right);
+        }
+    }
+
+    // Optional: Postorder traversal
+    public static void postorderTraversal(Node root) {
+        if (root != null) {
+            postorderTraversal(root.left);
+            postorderTraversal(root.right);
+            System.out.print(root.data + " ");
+        }
+    }
+
+    public static void main(String[] args) {
+        int[] preorder = {10, 2, 1, 5, 11, 3, 6, 4};  // sample input
+
+        Node root = bstFromPreorder(preorder);
+
+        System.out.print("Inorder Traversal of constructed BST: ");
+        inorderTraversal(root);
+        System.out.println();
+
+        System.out.print("Postorder Traversal of constructed BST: ");
+        postorderTraversal(root);
+        System.out.println();
+    }
+}
