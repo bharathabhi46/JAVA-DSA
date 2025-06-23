@@ -1,0 +1,60 @@
+
+import java.util.*;
+
+public class SortEleToAMatrix {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        // Input matrix size
+        System.out.print("Enter matrix size N: ");
+        int N = sc.nextInt();
+
+        int[][] Mat = new int[N][N];
+
+        // Input matrix elements
+        System.out.println("Enter matrix elements:");
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                Mat[i][j] = sc.nextInt();
+            }
+        }
+
+        // Call the solution method
+        int[][] result = sortedMatrix(N, Mat);
+
+        // Print sorted matrix
+        System.out.println("Sorted Matrix:");
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                System.out.print(result[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+
+    public static int[][] sortedMatrix(int N, int Mat[][]) {
+        List<Integer> list = new ArrayList<>();
+
+        // Step 1: Flatten the matrix into a list
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                list.add(Mat[i][j]);
+            }
+        }
+
+        // Step 2: Sort the list
+        Collections.sort(list);
+
+        // Step 3: Fill back into a matrix
+        int index = 0;
+        int[][] arr = new int[N][N];
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                arr[i][j] = list.get(index++);
+            }
+        }
+
+        return arr;
+    }
+}
