@@ -1,0 +1,34 @@
+import java.util.*;
+
+public class Solution {
+
+    // Function to find the k-th smallest element in the matrix
+    public int kthSmallest(int[][] matrix, int k) {
+        List<Integer> arr = new ArrayList<>();
+        int n = matrix.length;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                arr.add(matrix[i][j]);
+            }
+        }
+        Collections.sort(arr);
+        return arr.get(k - 1);
+    }
+
+    // Main method to test the function
+    public static void main(String[] args) {
+        Solution sol = new Solution();
+
+        // Sample matrix
+        int[][] matrix = {
+            {1, 5, 9},
+            {10, 11, 13},
+            {12, 13, 15}
+        };
+
+        int k = 8;  // We want to find the 8th smallest element
+
+        int result = sol.kthSmallest(matrix, k);
+        System.out.println("The " + k + "th smallest element is: " + result);
+    }
+}
