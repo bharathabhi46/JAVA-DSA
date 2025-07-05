@@ -1,0 +1,90 @@
+
+import java.util.*;
+
+public class ReplaceWord {
+
+    static StringBuilder s = new StringBuilder();
+
+    public static class Node {
+
+        Node children[];
+        boolean eow;
+
+        public Node() {
+            children = new Node[26];
+            for (int i = 0; i < 26; i++) {
+                children[i] = null;
+            }
+            eow = false;
+        }
+    }
+
+    public static void insert(String word, Node root) {
+        Node cur = root;
+        for (int i = 0; i < word.length(); i++) {
+            int ind = word.charAt(i) - 'a';
+            if (cur.children[ind] == null) {
+                cur.children[ind] = new Node();
+            }
+            if (i == word.length() - 1) {
+                cur.children[ind].eow = true;
+            }
+            cur = cur.children[ind];
+        }
+    }
+
+    public static boolean search(String word, Node root) {
+        Node cur = root;
+        for (int i = 0; i < word.length(); i++) {
+            int ind = word.charAt(i) - 'a';
+            Node node = cur.children[ind];
+            if (node == null) {
+                return false;
+            }
+            if (i == word.length() - 1 && !node.eow) {
+                return false;
+            }
+            cur = cur.children[ind];
+        }
+        return true;
+    }
+
+    public static boolean firstChar(char l, Node root) {
+        int ind = l - 'a';
+        return root.children[ind] != null;
+    }
+
+    public static void rePlace(String word, Node root) {
+        if (!firstChar(word.charAt(0), root)) {
+            s.append(word).append(" ");
+        } else {
+            for (int i = 1; i <= word.length(); i++) {
+                String fP = word.substring(0, i);
+                if (search(fP, root)) {
+                    s.append(fP).append(" ");
+                    return;
+                }
+            }
+            s.append(word).append(" ");
+        }
+    }
+
+    public static String replaceWords(List<String> dictionary, String sentence) {
+        Node root = new Node();
+        for (String dictWord : dictionary) {
+            insert(dictWord, root);
+        }
+        String arr[] = sentence.split(" ");
+        for (String word : arr) {
+            rePlace(word, root);
+        }
+        return s.toString().trim();
+    }
+
+    public static void main(String[] args) {
+        List<String> dictionary = Arrays.asList("cat", "bat", "rat");
+        String sentence = "the cattle was rattled by the battery";
+        String result = replaceWords(dictionary, sentence);
+        System.out.println(result); // Output: "the cat was rat by the bat"
+    }
+}
