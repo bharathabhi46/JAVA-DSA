@@ -1,0 +1,66 @@
+import java.util.*;
+
+class GfG {
+    public static class Node {
+        Node children[];
+        boolean eow;
+
+        public Node() {
+            children = new Node[2]; // only 0 and 1 for binary matrix
+            eow = false;
+        }
+    }
+
+    // Modified insert: returns true if the row is unique
+    public static boolean insert(int r[], Node root) {
+        Node cur = root;
+        for (int i = 0; i < r.length; i++) {
+            if (cur.children[r[i]] == null) {
+                cur.children[r[i]] = new Node();
+            }
+            cur = cur.children[r[i]];
+        }
+        if (!cur.eow) {
+            cur.eow = true;
+            return true; // unique row
+        }
+        return false; // duplicate row
+    }
+
+    public static ArrayList<ArrayList<Integer>> uniqueRow(int a[][], int r, int c) {
+        Node root = new Node();
+        ArrayList<ArrayList<Integer>> re = new ArrayList<>();
+
+        for (int i = 0; i < r; i++) {
+            if (insert(a[i], root)) { // Only add if unique
+                ArrayList<Integer> l = new ArrayList<>();
+                for (int j = 0; j < c; j++) {
+                    l.add(a[i][j]);
+                }
+                re.add(l);
+            }
+        }
+        return re;
+    }
+
+    public static void main(String[] args) {
+        int a[][] = {
+            {1, 0, 0, 1},
+            {1, 0, 0, 1},
+            {0, 1, 1, 0},
+            {1, 0, 0, 0}
+        };
+        int r = a.length;
+        int c = a[0].length;
+
+        ArrayList<ArrayList<Integer>> ans = uniqueRow(a, r, c);
+
+        System.out.println("Unique rows are:");
+        for (ArrayList<Integer> row : ans) {
+            for (int val : row) {
+                System.out.print(val + " ");
+            }
+            System.out.println();
+        }
+    }
+}
