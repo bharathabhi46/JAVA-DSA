@@ -1,0 +1,78 @@
+
+import java.util.*;
+
+public class BfsAlgorithm {
+
+    public static class Edge {
+
+        int dt;
+
+        public Edge(int d) {
+            this.dt = d;
+        }
+    }
+
+    public static void createGraph(ArrayList<Edge> graph[], ArrayList<ArrayList<Integer>> adj) {
+        for (int i = 0; i < graph.length; i++) {
+            graph[i] = new ArrayList<Edge>();
+        }
+        for (int i = 0; i < adj.size(); i++) {
+            for (int j = 0; j < adj.get(i).size(); j++) {
+                graph[i].add(new Edge(adj.get(i).get(j)));
+            }
+        }
+    }
+
+    public static void bfs(ArrayList<Edge> graph[], ArrayList<Integer> re, boolean vis[]) {
+        Queue<Integer> q = new LinkedList<>();
+        q.add(0); // starting from node 0
+        while (!q.isEmpty()) {
+            int c = q.remove();
+            if (vis[c] == false) {
+                re.add(c);
+                vis[c] = true;
+                for (int i = 0; i < graph[c].size(); i++) {
+                    Edge e = graph[c].get(i);
+                    q.add(e.dt);
+                }
+            }
+        }
+    }
+
+    public static ArrayList<Integer> bfs(ArrayList<ArrayList<Integer>> adj) {
+        int n = adj.size();
+        ArrayList<Edge> graph[] = new ArrayList[n];
+        createGraph(graph, adj);
+        ArrayList<Integer> re = new ArrayList<>();
+        boolean vis[] = new boolean[n];
+        bfs(graph, re, vis);
+        return re;
+    }
+
+    public static void main(String[] args) {
+        // Example input graph as adjacency list
+        ArrayList<ArrayList<Integer>> adj = new ArrayList<>();
+
+        int n = 5; // number of nodes
+
+        for (int i = 0; i < n; i++) {
+            adj.add(new ArrayList<Integer>());
+        }
+
+        // creating an example undirected graph
+        adj.get(0).add(1);
+        adj.get(0).add(2);
+        adj.get(1).add(0);
+        adj.get(1).add(3);
+        adj.get(2).add(0);
+        adj.get(2).add(4);
+        adj.get(3).add(1);
+        adj.get(4).add(2);
+
+        // calling bfs
+        ArrayList<Integer> result = bfs(adj);
+
+        // printing result
+        System.out.println("BFS Traversal: " + result);
+    }
+}
