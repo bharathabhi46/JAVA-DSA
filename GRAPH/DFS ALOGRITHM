@@ -1,0 +1,73 @@
+import java.util.*;
+
+public class Solution {
+
+    public static class Edge {
+        int dt;
+        public Edge(int d) {
+            this.dt = d;
+        }
+    }
+
+    public static void createGraph(ArrayList<Edge> graph[], ArrayList<ArrayList<Integer>> adj) {
+        for (int i = 0; i < graph.length; i++) {
+            graph[i] = new ArrayList<Edge>();
+        }
+        for (int i = 0; i < adj.size(); i++) {
+            for (int j = 0; j < adj.get(i).size(); j++) {
+                graph[i].add(new Edge(adj.get(i).get(j)));
+            }
+        }
+    }
+
+    public static void dfs(ArrayList<Edge> graph[], ArrayList<Integer> re, boolean vis[], int cur) {
+        re.add(cur);
+        vis[cur] = true;
+        for (int i = 0; i < graph[cur].size(); i++) {
+            Edge e = graph[cur].get(i);
+            if (!vis[e.dt]) {
+                dfs(graph, re, vis, e.dt);
+            }
+        }
+    }
+
+    public static ArrayList<Integer> dfs(ArrayList<ArrayList<Integer>> adj) {
+        int n = adj.size();
+        ArrayList<Edge> graph[] = new ArrayList[n];
+        createGraph(graph, adj);
+        ArrayList<Integer> re = new ArrayList<>();
+        boolean vis[] = new boolean[n];
+        dfs(graph, re, vis, 0);
+        return re;
+    }
+
+    public static void main(String[] args) {
+        // Example input: adjacency list
+        ArrayList<ArrayList<Integer>> adj = new ArrayList<>();
+        int n = 4; // number of nodes
+        for (int i = 0; i < n; i++) {
+            adj.add(new ArrayList<Integer>());
+        }
+
+        // creating a simple graph
+        adj.get(0).add(1);
+        adj.get(0).add(2);
+        adj.get(1).add(0);
+        adj.get(1).add(3);
+        adj.get(2).add(0);
+        adj.get(3).add(1);
+
+        ArrayList<Integer> result = dfs(adj);
+        System.out.println("DFS Traversal: " + result);
+    }
+}
+
+/*
+Time Complexity (TC): O(V + E)
+- V = number of vertices (nodes)
+- E = number of edges
+- Because we visit each node and edge once in DFS
+
+Space Complexity (SC): O(V)
+- For visited array and recursion stack in worst case
+*/
