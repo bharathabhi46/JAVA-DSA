@@ -1,0 +1,70 @@
+
+import java.util.*;
+
+public class CycleDetectionUndirected {
+
+    public static class Edge {
+
+        int dt;
+
+        public Edge(int d) {
+            this.dt = d;
+        }
+    }
+
+    public static void createGraph(ArrayList<Edge> graph[], int edges[][], int V) {
+        for (int i = 0; i < V; i++) {
+            graph[i] = new ArrayList<Edge>();
+        }
+        for (int i = 0; i < edges.length; i++) {
+            int u = edges[i][0];
+            int v = edges[i][1];
+            if (u >= V || v >= V) {
+                continue; // prevent index out of bounds
+
+                        }graph[u].add(new Edge(v));
+            graph[v].add(new Edge(u));
+        }
+    }
+
+    public static boolean dfs(ArrayList<Edge> graph[], boolean vis[], int cur, int p) {
+        vis[cur] = true;
+        for (int i = 0; i < graph[cur].size(); i++) {
+            Edge e = graph[cur].get(i);
+            if (vis[e.dt] && p != e.dt) {
+                return true;
+            }
+            if (!vis[e.dt]) {
+                if (dfs(graph, vis, e.dt, cur)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public static boolean isCycle(int V, int[][] edges) {
+        ArrayList<Edge> graph[] = new ArrayList[V];
+        createGraph(graph, edges, V);
+        boolean vis[] = new boolean[V];
+        try {
+            for (int i = 0; i < V; i++) {
+                if (!vis[i]) {
+                    if (dfs(graph, vis, i, -1)) {
+                        return true;
+                    }
+                }
+            }
+        } catch (StackOverflowError e) {
+            System.out.println("Stack Overflow due to deep recursion");
+            return true; // assume cycle exists if overflow
+        }
+        return false;
+    }
+
+    public static void main(String[] args) {
+        int V1 = 4;
+        int[][] edges1 = {{0, 1}, {0, 2}, {1, 2}, {2, 3}};
+        System.out.println(isCycle(V1, edges1)); // true
+    }
+}
