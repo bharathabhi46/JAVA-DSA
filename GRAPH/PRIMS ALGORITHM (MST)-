@@ -1,0 +1,91 @@
+import java.util.*;
+
+public class Solution {
+
+    public static class Edge {
+        int dest;
+        int wt;
+
+        public Edge(int d, int w) {
+            this.dest = d;
+            this.wt = w;
+        }
+    }
+
+    public static void createGraph(ArrayList<Edge> graph[], int V, List<List<int[]>> edges) {
+        for (int i = 0; i < V; i++) {
+            graph[i] = new ArrayList<>();
+            for (int[] edgeInfo : edges.get(i)) {
+                int dest = edgeInfo[0];
+                int weight = edgeInfo[1];
+                graph[i].add(new Edge(dest, weight));
+            }
+        }
+    }
+
+    public static class Pair implements Comparable<Pair> {
+        int node;
+        int cost;
+
+        public Pair(int n, int c) {
+            this.node = n;
+            this.cost = c;
+        }
+
+        @Override
+        public int compareTo(Pair p2) {
+            return this.cost - p2.cost;
+        }
+    }
+
+    public static int primsAlgo(ArrayList<Edge> graph[], int V) {
+        PriorityQueue<Pair> pq = new PriorityQueue<>();
+        boolean vis[] = new boolean[V];
+        int minCost = 0;
+        pq.add(new Pair(0, 0));
+        while (!pq.isEmpty()) {
+            Pair cur = pq.remove();
+            if (!vis[cur.node]) {
+                vis[cur.node] = true;
+                minCost += cur.cost;
+                for (Edge e : graph[cur.node]) {
+                    if (!vis[e.dest]) {
+                        pq.add(new Pair(e.dest, e.wt));
+                    }
+                }
+            }
+        }
+        return minCost;
+    }
+
+    public static int spanningTree(int V, int E, List<List<int[]>> edges) {
+        ArrayList<Edge> graph[] = new ArrayList[V];
+        createGraph(graph, V, edges);
+        return primsAlgo(graph, V);
+    }
+
+    // ---------- MAIN METHOD TO RUN THE CODE ----------
+    public static void main(String[] args) {
+        int V = 4; // Number of vertices
+        int E = 5; // Number of edges
+
+        // Sample graph input as adjacency list with [dest, weight] for each node
+        List<List<int[]>> edges = new ArrayList<>();
+
+        // For node 0
+        edges.add(Arrays.asList(new int[]{1, 1}, new int[]{2, 3}));
+
+        // For node 1
+        edges.add(Arrays.asList(new int[]{0, 1}, new int[]{2, 1}, new int[]{3, 4}));
+
+        // For node 2
+        edges.add(Arrays.asList(new int[]{0, 3}, new int[]{1, 1}, new int[]{3, 1}));
+
+        // For node 3
+        edges.add(Arrays.asList(new int[]{1, 4}, new int[]{2, 1}));
+
+        // Call the spanningTree function
+        int mstCost = spanningTree(V, E, edges);
+        System.out.println("Minimum Spanning Tree Cost: " + mstCost);
+    }
+}
