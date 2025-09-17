@@ -1,0 +1,44 @@
+class Solution {
+    class jS{
+        int eT;
+        int aP;
+        public jS(int e, int p){
+            this.eT = e;
+            this.aP = p;
+        }
+    }
+    public ArrayList<Integer> jobSequencing(int[] deadline, int[] profit) {
+        int n = deadline.length;
+        int mP = 0;
+        int mD = -1;
+        int c = 0;
+        List<jS> l = new ArrayList<>();
+        for(int i=0;i<n;i++){
+            l.add(new jS(deadline[i], profit[i]));
+        }
+        Collections.sort(l, (a,b)->{
+            return b.aP - a.aP;
+        });
+        for(int i=0;i<n;i++){
+            mD = Math.max(mD, l.get(i).eT);
+        }
+        int arr[] = new int[mD+1];
+        for(int i=0;i<=mD;i++){
+            arr[i] = -1;
+        }
+        for(int i=0;i<n;i++){
+            for(int j=l.get(i).eT;j>0;j--){
+                if(arr[j] == -1){
+                    c++;
+                    arr[j] = i;
+                    mP+=l.get(i).aP;
+                    break;
+                }
+            }
+        }
+        ArrayList<Integer> re = new ArrayList<>();
+        re.add(c);
+        re.add(mP);
+        return re;
+    }
+}
