@@ -1,0 +1,32 @@
+class Solution {
+   static class ds{
+        int s;
+        int e;
+        int ind;
+        public ds(int s, int e, int ind){
+            this.s = s;
+            this.e = e;
+            this.ind = ind;
+        }
+    }
+    public static ArrayList<Integer> maxMeetings(int N, int[] S, int[] F) {
+        List<ds> meets = new ArrayList<>();
+        for(int i=0;i<N;i++){
+            meets.add(new ds(S[i], F[i], i+1));
+        }
+        Collections.sort(meets, (a,b)->{
+            if(a.e == b.e) return a.ind - b.ind;
+            return a.e - b.e;
+        });
+        ArrayList<Integer> re = new ArrayList<>();
+        int eL = -1;
+        for(int i=0;i<N;i++){
+            if(meets.get(i).s > eL){
+                re.add(meets.get(i).ind);
+                eL  = meets.get(i).e;
+            }
+        }
+        Collections.sort(re);
+        return re;
+    }
+}
