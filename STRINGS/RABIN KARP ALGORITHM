@@ -1,0 +1,32 @@
+class Solution {
+    ArrayList<Integer> search(String pat, String txt) {
+        // code here
+        int n = pat.length();
+        int m = txt.length();
+        int mod = 1000000007;
+        ArrayList<Integer> re = new ArrayList<>();
+        long ha = 0;
+        long hb = 0;
+        long p = 43;
+        long p1 = p;
+        long p2 = p;
+        for(int i=0;i<n;i++){
+            ha = (ha + (((txt.charAt(i) - 'a') * p1)%mod))%mod;
+            hb = (hb + (((pat.charAt(i) - 'a') * p1)%mod))%mod;
+            p1 = (p1 * p)%mod;
+        }
+        if(hb == ha){
+            re.add(0);
+        }
+        for(int i=n;i<m;i++){
+            ha = (ha - (((txt.charAt(i-n) - 'a') * p2)%mod) + (((txt.charAt(i) - 'a') * p1)%mod) + mod)%mod;
+            hb = (hb*p)%mod;
+            if(hb == ha){
+                re.add(i-n+1);
+            }
+            p1 = (p1 * p)%mod;
+            p2 = (p2 * p)%mod;
+        }
+        return re;
+    }
+}
