@@ -1,0 +1,21 @@
+class Solution {
+    public static void f(int m, int ind1, ArrayList<ArrayList<String>> re, ArrayList<String> l, String[][] list){
+        if(ind1 == m){
+            re.add(new ArrayList<>(l));
+            return;
+        }
+         for (int i = 0;i<list.length;i++) {
+            l.add(list[ind1][i]);
+            f(m, ind1 + 1, re, l, list);
+            l.remove(l.size() - 1);
+        }
+    }
+    public static ArrayList<ArrayList<String>> sentences(String[][] list) {
+        int n = list.length;
+        int m = list[0].length;
+        ArrayList<ArrayList<String>> re = new ArrayList<>();
+        ArrayList<String> l = new ArrayList<>();
+        f(m, 0, re, l, list);
+        return re;
+    }
+}
