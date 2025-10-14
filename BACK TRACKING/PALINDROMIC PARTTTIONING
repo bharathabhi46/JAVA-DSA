@@ -1,0 +1,27 @@
+class Solution {
+    public boolean isPal(String s){
+        StringBuilder str = new StringBuilder(s);
+        str.reverse();
+        return str.toString().equals(s);
+    }
+    public void f(String s, int n, int ind, List<List<String>> re, List<String> l){
+        if(ind == n){
+            re.add(new ArrayList<>(l));
+            return;
+        }
+        for(int i=ind;i<n;i++){
+            if(isPal(s.substring(ind, i+1))){
+                l.add(s.substring(ind, i+1));
+                f(s, n, i+1, re, l);
+                l.remove(l.size() - 1);
+            }
+        }
+    }
+    public List<List<String>> partition(String s) {
+        List<List<String>> re = new ArrayList<>();
+        List<String> l = new ArrayList<>();
+        int n = s.length();
+        f(s, n, 0, re, l);
+        return re;
+    }
+}
