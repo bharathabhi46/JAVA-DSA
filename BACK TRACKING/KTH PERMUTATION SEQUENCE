@@ -1,0 +1,23 @@
+class Solution {
+    public static String kthPermutation(int n, int k) {
+        List<Integer> re = new ArrayList<>();
+        int fact = 1;
+        for(int i = 1;i<n;i++){
+            fact = fact*i;
+            re.add(i);
+        }
+        StringBuilder str = new StringBuilder();
+        re.add(n);
+        k = k-1;
+        while(true){
+            str.append(re.get(k/fact));
+            re.remove(k/fact);
+            k = k%fact;
+            if(re.size() == 0){
+                break;
+            }
+            fact/=re.size();
+        }
+        return str.toString();
+    }
+}
