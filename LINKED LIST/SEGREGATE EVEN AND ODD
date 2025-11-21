@@ -1,0 +1,36 @@
+// User function Template for Java
+
+/*
+class Node{
+    int data;
+    Node next;
+
+    Node(int x){
+        data = x;
+        next = null;
+    }
+}
+*/
+
+class Solution {
+    Node divide(Node head) {
+        Node o = new Node(-1);
+        Node e = new Node(-1);
+        Node h1 = o;
+        Node h2 = e;
+        Node cur = head;
+        while(cur!=null){
+            if(cur.data%2==0){
+                e.next = cur;
+                e = e.next;
+            }else{
+                o.next = cur;
+                o = o.next;
+            }
+            cur = cur.next;
+        }
+        o.next = null;
+        e.next = h1.next;
+        return h2.next;
+    }
+}
