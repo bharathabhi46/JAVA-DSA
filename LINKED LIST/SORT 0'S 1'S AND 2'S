@@ -1,0 +1,40 @@
+/*
+class Node {
+    int data;
+    Node next;
+
+    Node(int d)
+    {
+        data = d;
+        next = null;
+    }
+}*/
+
+class Solution {
+    public Node segregate(Node head) {
+        Node z = new Node(-1);
+        Node o = new Node(-1);
+        Node t = new Node(-1);
+        Node h1 = o;
+        Node h2 = t;
+        Node h3 = z;
+        Node cur = head;
+        while(cur!=null){
+            if(cur.data == 0){
+                z.next = cur;
+                z = z.next;
+            }else if(cur.data == 1){
+                o.next = cur;
+                o = o.next;
+            }else{
+                t.next = cur;
+                t = t.next;
+            }
+            cur = cur.next;
+        }
+        t.next = null;
+        o.next = h2.next;
+        z.next = h1.next;
+        return h3.next;
+    }
+}
