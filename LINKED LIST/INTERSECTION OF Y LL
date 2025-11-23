@@ -1,0 +1,24 @@
+/*
+class Node {
+    int data;
+    Node next;
+
+    Node(int d) {
+        data = d;
+        next = null;
+    }
+}
+*/
+
+class Solution {
+    public Node intersectPoint(Node head1, Node head2) {
+        // code here
+        Node c1 = head1;
+        Node c2 = head2;
+        while(c1!=c2){
+            c1 = (c1 == null) ? head1 : c1.next;
+            c2 = (c2 == null) ? head2 : c2.next;
+        }
+        return c1;
+    }
+}
