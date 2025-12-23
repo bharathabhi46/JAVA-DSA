@@ -1,0 +1,22 @@
+class Solution {
+    public void dfs(int image[][], int color, int uL[], int hL[], int ans[][], int row, int col, int iniC, int n, int m){
+        ans[row][col] = color;
+        for(int i=0;i<4;i++){
+            int nrow = row + uL[i];
+            int ncol = col + hL[i];
+            if(nrow>=0 && nrow<n && ncol>=0 && ncol<m && image[nrow][ncol] == iniC && ans[nrow][ncol]!=color){
+                dfs(image, color, uL, hL, ans,  nrow, ncol, iniC, n, m);
+            }
+        }
+    }
+    public int[][] floodFill(int[][] image, int sr, int sc, int color) {
+        int n = image.length;
+        int m = image[0].length;
+        int iniC = image[sr][sc];
+        int ans[][] = image;
+        int uL[] = {-1 , 0, 1, 0};
+        int hL[] = {0, 1, 0 , -1};
+        dfs(image, color, uL, hL, ans, sr, sc, iniC,n, m);
+        return ans;
+    }
+}
