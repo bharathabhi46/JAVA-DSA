@@ -64,3 +64,41 @@ class GfG {
         }
     }
 }
+
+////
+/*Complete the given function*/
+class GfG {
+    public static class Node{
+        Node children[];
+        public Node(){
+            children = new Node[2];
+            for(int i=0;i<2;i++){
+                children[i] = null;
+            }
+        }
+    }
+    public static void insert(Node root, int a[][], int r, int c, ArrayList<ArrayList<Integer>> re){
+        for(int i=0;i<r;i++){
+            Node cur = root;
+            ArrayList<Integer> l = new ArrayList<>();
+            boolean d = true;;
+            for(int j=0;j<c;j++){
+                l.add(a[i][j]);
+                if(cur.children[a[i][j]]==null){
+                    cur.children[a[i][j]] = new Node();
+                    d = false;
+                }
+                cur = cur.children[a[i][j]];
+            }
+            if(!d){
+                re.add(l);
+            }
+        }
+    }
+    public static ArrayList<ArrayList<Integer>> uniqueRow(int a[][], int r, int c) {
+        ArrayList<ArrayList<Integer>> re = new ArrayList<>();
+        Node root = new Node();
+        insert(root, a, r, c, re);
+        return re;
+    }
+}
