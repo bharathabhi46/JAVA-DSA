@@ -1,0 +1,62 @@
+class Solution {
+    static int dp[][];
+    public int f(int arr[], int ind, int pI, int n){
+        if(ind == n){
+            return 0;
+        }
+        if(dp[ind][pI+1]!=-1){
+            return dp[ind][pI+1];
+        }
+        int len = 0 + f(arr, ind+1, pI, n);
+        if(pI==-1 || arr[ind]>arr[pI]){
+            len = Math.max(len, 1 + f(arr, ind+1, ind, n));
+        }
+        return dp[ind][pI+1] = len;
+    }
+    public int lengthOfLIS(int[] nums) {
+        int n = nums.length;
+        dp = new int[n][n+1];
+        for(int i=0;i<n;i++){
+            for(int j=0;j<=n;j++){
+                dp[i][j] = -1;
+            }
+        }
+        return f(nums, 0, -1, n);
+    }Q
+}
+class Solution {
+    public int lengthOfLIS(int[] nums) {
+        int n = nums.length;
+        int[][] dp = new int[n + 1][n + 1];
+
+
+        for (int ind = n - 1; ind >= 0; ind--) {
+            for (int pI = ind - 1; pI >= -1; pI--) {
+
+                int len = dp[ind + 1][pI + 1]; 
+
+                if (pI == -1 || nums[ind] > nums[pI]) {
+                    len = Math.max(len, 1 + dp[ind + 1][ind + 1]);
+                }
+
+                dp[ind][pI + 1] = len;
+            }
+        }
+
+        return dp[0][0];
+    }
+}
+Important
+
+ind → logic (previous index)
+
+ind + 1 → only table column number
+
+Why ind + 1 appears in tabulation
+
+No function calls
+
+So we write directly what recursion was hiding:
+dp[ind + 1][ind + 1]   // means f(ind + 1, ind)
+
+Recursion passes ind as previous index, DP stores it as ind + 1 only to avoid -1
