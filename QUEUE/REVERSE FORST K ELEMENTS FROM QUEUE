@@ -30,3 +30,4 @@ public class ReverseFirstKEleFromQueue {
         System.out.println(result);  // Output: [3, 2, 1, 4, 5]
     }
 }
+////
