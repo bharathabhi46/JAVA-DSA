@@ -16,7 +16,7 @@ class Solution {
             }
             if(i == word.length()-1){
                 cur.children[ind].eow = true;
-            }
+            }////////////////////
             cur = cur.children[ind];
         }
     }
