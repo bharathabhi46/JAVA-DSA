@@ -1,6 +1,5 @@
 
-import java.util.*;
-
+import java.util.*;/////
 public class CommonEleInAllRows {
 
     public static Set<Integer> solveComEle(int arr[][]) {
