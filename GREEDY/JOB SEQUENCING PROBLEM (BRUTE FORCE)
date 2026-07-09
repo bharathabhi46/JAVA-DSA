@@ -7,6 +7,7 @@ class Solution {
             this.aP = p;
         }
     }
+///////////////////////////////
     public ArrayList<Integer> jobSequencing(int[] deadline, int[] profit) {
         int n = deadline.length;
         int mP = 0;
