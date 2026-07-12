@@ -46,5 +46,139 @@ public class LongestPrefixSuffix {
 
         // TIME COMPLEXITY => O(n^2)
         // SPACE COMPLEXITY => O(1)
+
+
+///
+Suppose our pattern is:
+
+```text
+Pattern = ABABAC
+LPS     = 0 0 1 2 3 0
+```
+
+Now we're matching it against the text.
+
+After some comparisons, we've successfully matched the first 5 characters:
+
+```text
+Text    : A B A B A B ...
+Pattern : A B A B A C
+          ✓ ✓ ✓ ✓ ✓
+```
+
+So we know for sure that:
+
+```text
+Text contains = ABABA
+```
+
+Now we compare the next character:
+
+```text
+Text    = B
+Pattern = C
+```
+
+They don't match.
+
+The question is:
+
+**Can we avoid starting the pattern from the beginning?**
+
+The answer is **yes**.
+
+Why?
+
+Look only at the matched part of the **pattern**:
+
+```text
+ABABA
+```
+
+It has:
+
+```text
+Prefix = ABA
+Suffix = ABA
+```
+
+Notice that the first 3 characters and the last 3 characters are exactly the same.
+
+Now remember what we already proved:
+
+```text
+Text = ABABA
+```
+
+The last 3 characters of the matched text are:
+
+```text
+ABA
+```
+
+Since the pattern also **starts** with `ABA`, those characters are **already known to match**.
+
+We don't need to compare them again because we've already compared them earlier.
+
+So instead of doing this:
+
+```text
+Pattern : A B A B A C
+          ^
+```
+
+(starting from the beginning)
+
+we jump to:
+
+```text
+Pattern : A B A B A C
+                ^
+```
+
+This jump is exactly what the LPS value tells us.
+
+Since:
+
+```text
+lps[4] = 3
+```
+
+we do:
+
+```java
+j = 3;
+```
+
+The text pointer (`i`) does **not** move back.
+
+---
+
+### The easiest way to think about it
+
+Imagine someone tells you:
+
+> "I have already checked that the text is `ABABA`."
+
+Now you look at the pattern and notice:
+
+```text
+ABABA
+```
+
+starts with `ABA` and also ends with `ABA`.
+
+Since the text already ends with `ABA`, why compare those three characters again?
+
+You already know they match.
+
+So you simply continue matching from the next character after `ABA`.
+
+That's the entire idea behind KMP.
+
+**KMP doesn't skip comparisons because of the text.**
+
+It skips comparisons because the **pattern tells us** that some of the matched characters can be reused. The LPS array stores exactly how many characters can be reused after a mismatch.
+
     }
 }
