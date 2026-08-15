@@ -1,0 +1,26 @@
+
+class Solution {
+    public int beautySum(String s) {
+        HashMap<Character, Integer> map = new HashMap<>();
+        int n = s.length();
+        int res = 0;
+        for(int i=0;i<n;i++){
+            map = new HashMap<>();
+            int max = Integer.MIN_VALUE;
+            int min = Integer.MAX_VALUE;
+            for(int j=i;j<n;j++){
+                map.put(s.charAt(j), map.getOrDefault(s.charAt(j), 0)+1);
+                max = Integer.MIN_VALUE;
+                min = Integer.MAX_VALUE;
+                if(map.size()>1){
+                    for(Map.Entry<Character, Integer> e : map.entrySet()){
+                        max = Math.max(max, e.getValue());
+                        min = Math.min(min, e.getValue());
+                    }
+                    res+=max - min;
+                }
+            }
+        }
+        return res;
+    }
+}
